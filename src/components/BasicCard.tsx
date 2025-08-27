@@ -8,14 +8,15 @@ export function BasicCard({ children }: PropsWithChildren) {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
+    borderRadius: 4,
     padding: 16,
     elevation: 2,
-    shadowColor: '#000',
+    shadowColor: 'gray',
     shadowOffset: {
       width: 0,
       height: 2,
     },
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
+    shadowOpacity: 0.4,
+    shadowRadius: 4,
   },
 });
