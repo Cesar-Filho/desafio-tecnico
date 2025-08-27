@@ -1,30 +1,29 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { HeaderButton } from '~/components/HeaderButton';
-import { TabBarIcon } from '~/components/TabBarIcon';
-import One from '~/screens/one';
-import Two from '~/screens/two';
+import { TotalizerScreen } from '~/screens/Totalizer';
+import { ListClientsScreen } from '~/screens/ListClients';
+import { ListContactsScreen } from '~/screens/ListContacts';
+import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 
 const Tab = createBottomTabNavigator({
   screenOptions: function ScreenOptions() {
     return {
       tabBarActiveTintColor: 'black',
+      headerShown: false,
     };
   },
+
   screens: {
-    One: {
-      screen: One,
-      options: ({ navigation }) => ({
-        title: 'Tab One',
-        tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-        headerRight: () => <HeaderButton onPress={() => navigation.navigate('Modal')} />,
-      }),
+    Totalizer: {
+      screen: TotalizerScreen,
+      options: { tabBarIcon: () => <MaterialIcons name="home" size={24} /> },
     },
-    Two: {
-      screen: Two,
-      options: {
-        title: 'Tab Two',
-        tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-      },
+    ListClients: {
+      screen: ListClientsScreen,
+      options: { tabBarIcon: () => <MaterialIcons name="people" size={24} /> },
+    },
+    ListContacts: {
+      screen: ListContactsScreen,
+      options: { tabBarIcon: () => <MaterialCommunityIcons name="contacts" size={24} /> },
     },
   },
 });

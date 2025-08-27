@@ -1,6 +1,6 @@
 import { createStaticNavigation, StaticParamList } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import Modal from '~/screens/modal';
+
 import TabNavigator from './tab-navigator';
 
 const Stack = createStackNavigator({
@@ -9,13 +9,6 @@ const Stack = createStackNavigator({
       screen: TabNavigator,
       options: {
         headerShown: false,
-      },
-    },
-    Modal: {
-      screen: Modal,
-      options: {
-        presentation: 'modal',
-        headerLeft: () => null,
       },
     },
   },
