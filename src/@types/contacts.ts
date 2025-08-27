@@ -4,5 +4,5 @@ export interface Contact {
   email: string;
   phone: string;
   role: string;
-  updated_at: Date;
+  updated_at: string;
 }

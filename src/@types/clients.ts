@@ -1,6 +1,6 @@
 export interface Client {
   id: string;
   name: string;
-  CNPJ: string;
+  cnpj: string;
   contact: string;
 }

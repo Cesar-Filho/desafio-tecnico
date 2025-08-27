@@ -14,12 +14,13 @@ const Stack = createStackNavigator({
   },
 });
 
-type RootNavigatorParamList = StaticParamList<typeof Stack>;
+type TabNavigatorParamList = StaticParamList<typeof TabNavigator>;
+type AppNavigationParamList = { TabNavigator: undefined } & TabNavigatorParamList;
 
 declare global {
   namespace ReactNavigation {
     // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-    interface RootParamList extends RootNavigatorParamList {}
+    interface RootParamList extends AppNavigationParamList {}
   }
 }
 
