@@ -3,11 +3,11 @@ import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import { createStackNavigator } from '@react-navigation/stack';
 import { StaticParamList } from '@react-navigation/native';
 
-import { RegisterContactsScreen } from '~/screens/RegisterContacts';
 import { RegisterClientScreen } from '~/screens/RegisterClient';
 import { ListContactsScreen } from '~/screens/ListContacts';
 import { ListClientsScreen } from '~/screens/ListClients';
 import { TotalizerScreen } from '~/screens/Totalizer';
+import { RegisterContactScreen } from '~/screens/RegisterContacts';
 
 const StackClient = createStackNavigator({
   screenOptions: {
@@ -32,7 +32,7 @@ const StackContact = createStackNavigator({
       screen: ListContactsScreen,
     },
     RegisterContact: {
-      screen: RegisterContactsScreen,
+      screen: RegisterContactScreen,
     },
   },
 });

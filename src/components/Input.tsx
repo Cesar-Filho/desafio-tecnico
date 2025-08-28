@@ -1,8 +1,9 @@
+import { forwardRef } from 'react';
 import { StyleSheet, TextInput, TextInputProps } from 'react-native';
 
-export function Input(props: TextInputProps) {
-  return <TextInput {...props} style={styles.input} />;
-}
+export const Input = forwardRef<TextInput, TextInputProps>((props, ref) => {
+  return <TextInput {...props} style={styles.input} ref={ref} />;
+});
 
 const styles = StyleSheet.create({
   input: {
