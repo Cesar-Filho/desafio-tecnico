@@ -1,24 +1,42 @@
-import { Alert, StyleSheet, TextInput, View } from 'react-native';
+import { Alert, FlatList, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Container } from '~/components/Container';
 import { Button } from '~/components/Button';
 import { Header } from '~/components/Header';
 import { Input } from '~/components/Input';
 import { useRef, useState } from 'react';
-import { useAppDispatch } from '~/store';
+import { useAppDispatch, useAppSelector } from '~/store';
 import { ClientsActions } from '~/store/slices/client';
 import { maskCNPJ } from '~/utils/helpers';
 
 export function RegisterClientScreen() {
   const { goBack } = useNavigation();
   const dispatch = useAppDispatch();
+  const { contacts } = useAppSelector((state) => state.contacts);
 
   const [name, setName] = useState('');
   const [cnpj, setCnpj] = useState('');
   const [contact, setContact] = useState('');
+  const [showSuggestions, setShowSuggestions] = useState(false);
 
   const cnpjRef = useRef<TextInput>(null);
   const contactRef = useRef<TextInput>(null);
+
+  const filteredContacts = contacts
+    ? contacts
+        .filter((c) => c.name.toLowerCase().includes(contact.toLowerCase()))
+        .map((c) => c.name)
+    : [];
+
+  const handleContactChange = (text: string) => {
+    setContact(text);
+    setShowSuggestions(text.length > 0 && filteredContacts.length > 0);
+  };
+
+  const handleSelectContact = (selected: string) => {
+    setContact(selected);
+    setShowSuggestions(false);
+  };
 
   const submit = () => {
     if (!name || !cnpj || !contact) {
@@ -52,11 +70,23 @@ export function RegisterClientScreen() {
         <Input
           ref={contactRef}
           placeholder="Contato"
-          onChangeText={setContact}
+          onChangeText={handleContactChange}
           value={contact}
           returnKeyType="done"
           onSubmitEditing={submit}
         />
+        {showSuggestions && (
+          <FlatList
+            data={filteredContacts}
+            keyExtractor={(item) => item}
+            style={styles.suggestions}
+            renderItem={({ item }) => (
+              <TouchableOpacity onPress={() => handleSelectContact(item)}>
+                <Text style={styles.suggestionItem}>{item}</Text>
+              </TouchableOpacity>
+            )}
+          />
+        )}
         <View style={styles.row}>
           <Button title="Voltar" onPress={goBack} />
           <Button title="Salvar" primary onPress={submit} />
@@ -75,5 +105,17 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     gap: 16,
+  },
+  suggestions: {
+    backgroundColor: '#fff',
+    borderRadius: 4,
+    elevation: 2,
+    marginTop: 2,
+    maxHeight: 120,
+  },
+  suggestionItem: {
+    padding: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#eee',
   },
 });
